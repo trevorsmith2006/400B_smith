@@ -15,7 +15,7 @@ def Read(filename):
     # parse first line of the form: time = #
     line1 = file.readline()
     label1, value1 = line1.split()
-    time = float(value1)*10.0*u.Myr
+    time = float(value1)*u.Myr
 
     # parse second line: num_particles = #
     line2 = file.readline()
