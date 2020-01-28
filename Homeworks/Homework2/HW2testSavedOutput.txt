@@ -1,0 +1,6 @@
+Printing data for 100th disk particle:
+3D distance =  4.245 kpc
+3D velocity =  312.135 km / s
+Mass =  1000000.0 solMass
+Converting distance to LYs
+3D distance =  13845.33823396728 lyr
