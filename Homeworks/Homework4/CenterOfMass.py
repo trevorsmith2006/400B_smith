@@ -129,7 +129,7 @@ class CenterOfMass:
             xNew = self.x - XCOM2
             yNew = self.y - YCOM2
             zNew = self.z - ZCOM2
-            RNEW = (XCOM2**2+YCOM2**2+ZCOM2**2)**0.5
+            RNEW = (xNew**2+yNew**2+zNew**2)**0.5
 
             # set the center of mass positions to the refined values
             XCOM = XCOM2
