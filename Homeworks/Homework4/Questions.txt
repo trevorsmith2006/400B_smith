@@ -1,0 +1,22 @@
+Milky Way Center of Mass
+position vector :  [-1.31  2.52 -1.43] kpc
+velocity vector :  [-0.11  4.48 -1.33] km / s
+Andromeda Center of Mass
+position vector:  [-377.66  611.43 -284.64] kpc
+velocity vector:  [ 72.85 -72.14  49.  ] km / s
+Triangulum Center of Mass
+position vector:  [-476.22  491.44 -412.4 ] kpc
+velocity vector:  [  44.42  101.78  142.23] km / s
+
+Relative Seperation between MW and M31 =  769.817260589
+Relative Velocity between MW and M31 =  117.161832096
+
+Relative Seperation between M31 and M33 =  201.082797126
+Relative Velocity between M31 and M33 =  199.369667201
+
+Question 4:
+As the Milky Way merges with Andromeda, the two galaxies will transfer and eject
+mass from each other. The particles most likely to be disrupted first are farther
+from the galactic center, as they require less energy to eject. Once the merging
+process begins, we will need to rely on the more tightly bound central stars to
+identify the galactic center of mass.
