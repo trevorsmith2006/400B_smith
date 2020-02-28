@@ -8,7 +8,6 @@ Collaborated with Michael Klein and James Taylor.
 """
 import numpy as np
 import astropy.units as u
-import matplotlib.pyplot as plt
 
 # import our functions from previous homeworks
 from ReadFile import Read
@@ -63,7 +62,8 @@ class MassProfile:
             return np.zeros(len(r))
 
         # create CenterOfMass object
-        COM = CenterOfMass(self.filename, ptype)
+        # always use disk stars for CoM
+        COM = CenterOfMass(self.filename, 2) # ptype=2 for disk stars
 
         # get COM position
         delta = 0.1
@@ -79,6 +79,7 @@ class MassProfile:
         xNew2 = xNew[ind]
         yNew2 = yNew[ind]
         zNew2 = zNew[ind]
+        mNew = self.m[ind]
 
         # Calculate magnitudes
         R = (xNew2**2+yNew2**2+zNew2**2)**(0.5)
@@ -91,7 +92,7 @@ class MassProfile:
             index = np.where(R < r[i])
 
             # add their masses and store in our array
-            encmass[i] = np.sum(self.m[index])
+            encmass[i] = np.sum(mNew[index])
 
         # return masses with proper units
         return encmass*1e10*u.Msun
@@ -175,102 +176,3 @@ class MassProfile:
 
         # plug into equation, round to 2 decimal places
         return np.around(np.sqrt(G*self.HernquistMass(r,a,Mhalo)/r),2)
-
-"""
-Homework 5 Part 8:
-Plot the mass profile for each component of the MW up to a radius of 30 kpc.
-"""
-# define the range of radii on the x-axis
-r = np.arange(0.1,30,0.2)*u.kpc
-
-# initialize plot
-fig, ax = plt.subplots(nrows=1,ncols=3,figsize=(15,5),
-                       sharex='all',sharey='all')
-
-# loop through galaxies (each column)
-# also set Hernquist scale lengths for later
-galaxies = ['MW','M31','M33']
-HernquistScales = [1.25,1.5,.75]*u.kpc
-for i in range(len(galaxies)):
-    # create MassProfile object for this galaxy
-    ProfileObj = MassProfile(galaxies[i],0)
-    # get component mass profiles
-    halo_mass = ProfileObj.MassEnclosed(1,r)
-    disk_mass = ProfileObj.MassEnclosed(2,r)
-    bulge_mass = ProfileObj.MassEnclosed(3,r)
-    # get total mass profile
-    total_mass = ProfileObj.MassEnclosedTotal(r)
-
-    # plot curves for component mass profiles
-    ax[i].plot(r,halo_mass,color='k',linestyle='solid',label='Dark Matter')
-    ax[i].plot(r,disk_mass,color='b',linestyle='solid',label='Disk Stars')
-    ax[i].plot(r,bulge_mass,color='r',linestyle='solid',label='Bulge Stars')
-    # plot total mass profile
-    ax[i].plot(r,total_mass,color='g',linestyle='solid',label='Total Mass')
-
-    # plot theoretical Hernquist Mass profile
-    # first we need the total halo mass
-    ind = np.where(ProfileObj.type == 1)
-    Mhalo = np.sum(ProfileObj.m[ind])*1e10*u.Msun
-    HProfile = ProfileObj.HernquistMass(r,HernquistScales[i],Mhalo)
-    ax[i].plot(r,HProfile,color='m',linestyle='dashed',
-               label='Hernquist Profile: a='+str(HernquistScales[i]))
-
-    # set title, axis labels, and scale
-    ax[i].set(title=galaxies[i]+' Mass Profile',
-              xlabel='Radius (kpc)',ylabel='Mass Enclosed ($M_{\odot}$)',
-              yscale='log')
-
-    # show legend
-    ax[i].legend()
-
-# save figure
-plt.savefig('MassProfiles.png')
-
-"""
-Homework 5 Part 9:
-Plot the circular velocity profile for each component of the MW up to a radius of 30 kpc.
-"""
-# initialize plot
-fig2, ax2 = plt.subplots(nrows=1,ncols=3,figsize=(15,5),
-                       sharex='all',sharey='all')
-
-# loop through galaxies (one per column)
-for i in range(len(galaxies)):
-    # create MassProfile Object for this galaxy
-    ProfileObj = MassProfile(galaxies[i],0)
-    # get component velocity profiles
-    halo_v = ProfileObj.CircularVelocity(1,r)
-    disk_v = ProfileObj.CircularVelocity(2,r)
-    bulge_v = ProfileObj.CircularVelocity(3,r)
-    # get total circular velocity profile
-    total_v = ProfileObj.TotalCircularVelocity(r)
-
-    # plot curves for component velocity profiles
-    ax2[i].plot(r,halo_v,color='k',linestyle='solid',label='Dark Matter')
-    ax2[i].plot(r,disk_v,color='b',linestyle='solid',label='Disk Stars')
-    ax2[i].plot(r,bulge_v,color='r',linestyle='solid',label='Bulge Stars')
-    # plot total mass profile
-    ax2[i].plot(r,total_v,color='g',linestyle='solid',label='All Matter')
-
-    # plot circular velocity due to theoretical Hernquist profile
-    # first we need the total halo mass
-    ind = np.where(ProfileObj.type == 1)
-    Mhalo = np.sum(ProfileObj.m[ind])*1e10*u.Msun
-    HProfile = ProfileObj.HernquistVCirc(r,HernquistScales[i],Mhalo)
-    ax2[i].plot(r,HProfile,color='m',linestyle='dashed',
-                label='Hernquist Velocities: a='+str(HernquistScales[i]))
-
-    # set title, axis labels, and scale
-    ax2[i].set(title=galaxies[i]+' Circular Velocities',
-              xlabel='Radius (kpc)',ylabel='Velocity (km/s)',
-              yscale='log')
-
-    # show legend
-    ax2[i].legend()
-
-# save figure
-plt.savefig('CircVelocityProfiles.png')
-
-# show plots
-plt.show()
