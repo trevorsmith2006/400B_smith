@@ -108,7 +108,7 @@ class CenterOfMass:
             XCOM2, YCOM2, ZCOM2 = self.COMdefine(x2,y2,z2,m2)
             
             # compute the new 3D COM position
-            RCOM2 = (XCOM**2+YCOM**2+ZCOM**2)**0.5 
+            RCOM2 = (XCOM2**2+YCOM2**2+ZCOM2**2)**0.5 
 
             # determine the difference between the previous center of mass position
             # and the new one.
