@@ -1,0 +1,10 @@
+See final plots in RelativeOrbits.png and RelativeOrbits_logscale.png.
+
+1. How many close encounters will the MW and M31 experience in the future?
+They will have 3 close encounters before merging completely.
+2. How is the time evolution of the separation and relative velocity related?
+I would describe the relation of these things differently for two time periods.
+When time <90 Gyr: Relative velocity is inversely related to relative separation. This is because the MW and M31 are still acting as a two body gravitational system.
+When time >90 Gyr: MW and M31 begin to merge. Both relative seperation and velocity decay towards zero.
+3. When do M31 and the MW merge?
+I would pinpoint the final collision at 90 Gyr.
