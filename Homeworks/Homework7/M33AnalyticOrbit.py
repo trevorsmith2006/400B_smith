@@ -284,3 +284,4 @@ calculations to account for the central potential becoming stronger as M31 gains
 need to consider the ram pressure that M31 will experience during the merger that M33 may not experience
 (or at least to the same degree). It would be difficult to model all of these things without ending up making
 a simulation of our own.
+"""
