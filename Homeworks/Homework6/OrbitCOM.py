@@ -118,6 +118,10 @@ def GetVelocities(galaxy):
     vy = data['vy']
     vz = data['vz']
     return np.array([vx,vy,vz])
+def GetTimes(galaxy):
+    data = np.genfromtxt('Orbit_'+galaxy+'.txt',names=True)
+    return data['t']
+	
 
 # function to compute the magnitude of the difference between two vectors
 # You can use this function to return both the relative position and relative velocity for two
@@ -135,11 +139,13 @@ def VectorMinus(v1,v2):
 
 MWM31_dist = VectorMinus(GetPositions('MW'),GetPositions('M31'))
 MWM31_vel = VectorMinus(GetVelocities('MW'),GetVelocities('M31'))
+t = GetTimes('MW')
 
 # of M33 and M31
 
 M31M33_dist = VectorMinus(GetPositions('M31'),GetPositions('M33'))
 M31M33_vel = VectorMinus(GetVelocities('M31'),GetVelocities('M33'))
+
 
 # Plot the Orbit of the galaxies
 #################################
@@ -150,11 +156,11 @@ fig,ax=plt.subplots(nrows=2,ncols=2,sharex='all',sharey='row')
 fig.suptitle("Local Group Relative Orbits: Distance and Velocity")
 
 # line plot: relative seperation between Milky Way and Andromeda
-ax[0,0].plot(MWM31_dist)
+ax[0,0].plot(t,MWM31_dist)
 ax[0,0].set(title="MW vs. M31",ylabel="Distance (kpc)")
 
 # M31 and M33
-ax[0,1].plot(M31M33_dist)
+ax[0,1].plot(t,M31M33_dist)
 ax[0,1].set(title="M31 vs. M33")
 
 
@@ -162,10 +168,10 @@ ax[0,1].set(title="M31 vs. M33")
 #################################
 
 # MW and M31
-ax[1,0].plot(MWM31_vel)
+ax[1,0].plot(t,MWM31_vel)
 ax[1,0].set(xlabel="Time (Gyr)",ylabel="Velocity (km/s)")
 
-ax[1,1].plot(M31M33_vel)
+ax[1,1].plot(t,M31M33_vel)
 ax[1,1].set(xlabel="Time (Gyr)")
 
 # set log scale for y-axis (optional)
